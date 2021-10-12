@@ -33,7 +33,7 @@ def estimarBetas (data, datax, datay):
         elif i not in data:
             print("Revisar si el nombre existe.")
     #--mirar como usar esta matriz con la libreria pandas para poder multiplicarla.
-    #--No se como hacer ... omg ... mira si puedes  
+    #--No se como hacer esto ... omg ... mira si puedes tu
     #Ahora que le pregunte al usuario cual variable quiere explicar
     empdep = []
     dep = input("Por favor, ingrese la variable a explicar: ")
@@ -42,6 +42,15 @@ def estimarBetas (data, datax, datay):
     else:
         print("Por favor revise si escribió bien el nombre de la variable.") #R--evisar si se puede hacer con un error programable
     
-    
-    
+def rsquared (datax, datay, df):
+    """Va a hallar el R^2. Recibe la variable dependiente y las independientes."""
+    #En si r^2 lo podemos definir como R^2= 1-SSR/SST
+    df = len(datay)-len(datax)-1 # los grados de libertad
+    yhat = np.p(datax)                         #lo usaremos para que nos haga el fit
+    ybar = np.sum(datay)/len(datay)  #metodo provisonal, mirar que tal funciona
+    ssr = np.sum((yhat-ybar)**2)   # a ssr lo podemos definir como la sumatoria de errores al cuadrado
+    sst = np.sum((datay-ybar)**2)     # a sst lo podemos definir como sse + ssr
+    r2 = 1 - (ssr /sst)
+    adr2 = 1-(1-r2)*(len(datay-1))/(df) #el r^2 ajustado
+    return r2, adr2 #revisar muy bien que esto tenga sentido alguno
     
