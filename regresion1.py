@@ -59,8 +59,6 @@ def rsquared (datax, datay, df):
     adr2 = 1-(1-r2)*(len(datay-1))/(df) #el r^2 ajustado
     return r2, adr2 #revisar muy bien que esto tenga sentido alguno
 
-def poder_explicativo():
-    None
 #Opcion 4 del set (Revisar opciones para graficar regresiones linelaes)
 def graficar():
     None
