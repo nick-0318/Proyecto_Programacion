@@ -32,14 +32,16 @@ def estimarBetas (data, datax, datay):
             datax.append(i) #las va agregando de una a una
         elif i not in data:
             print("Revisar si el nombre existe.")
-    #mirar como usar esta matriz con la libreria pandas para poder multiplicarla 
+    #--mirar como usar esta matriz con la libreria pandas para poder multiplicarla.
+    #--No se como hacer ... omg ... mira si puedes  
     #Ahora que le pregunte al usuario cual variable quiere explicar
     empdep = []
     dep = input("Por favor, ingrese la variable a explicar: ")
     if dep in data:
         empdep.append(dep)
     else:
-        print("Por favor revise si escribió bien el nombre de la variable.") #Revisar si se puede hacer con un error programable
+        print("Por favor revise si escribió bien el nombre de la variable.") #R--evisar si se puede hacer con un error programable
+    
     
     
     
