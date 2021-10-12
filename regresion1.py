@@ -27,13 +27,19 @@ def estimarBetas (data, datax, datay):
           empty.append(b)
     print("Estas son las variables a considerar para su modelo: ", empty)
     datax = [] #la matriz con nuestras variables explicativas
-    for i in empty:
+    for i in empty: #va agregando las variables explicativas a una matriz general x
         if i in data:
             datax.append(i) #las va agregando de una a una
         elif i not in data:
             print("Revisar si el nombre existe.")
     #mirar como usar esta matriz con la libreria pandas para poder multiplicarla 
-    
+    #Ahora que le pregunte al usuario cual variable quiere explicar
+    empdep = []
+    dep = input("Por favor, ingrese la variable a explicar: ")
+    if dep in data:
+        empdep.append(dep)
+    else:
+        print("Por favor revise si escribió bien el nombre de la variable.") #Revisar si se puede hacer con un error programable
     
     
     
