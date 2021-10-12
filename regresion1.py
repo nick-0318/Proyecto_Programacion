@@ -18,6 +18,11 @@ def pregunta():
         empty.append(b)
     print("Estas son las variables a considerar para su modelo: ", empty)
 
+#Opcion 1 del set (Estamos trabajando en ello)
+def testnormalidad():
+    input("Ingrese el tipo de test que desea realizar: ")
+
+
 def estimarBetas (data, datax, datay):
     """Vamos a estimar las Betas de la regresión lineal, mediante el método de minimos cuadrados."""
     numexp =  int(input("Ingrese el número de variables explicativas que desse para su modelo: ")) #El numero de variables explicativas
@@ -53,4 +58,9 @@ def rsquared (datax, datay, df):
     r2 = 1 - (ssr /sst)
     adr2 = 1-(1-r2)*(len(datay-1))/(df) #el r^2 ajustado
     return r2, adr2 #revisar muy bien que esto tenga sentido alguno
-    
+
+def poder_explicativo():
+    None
+#Opcion 4 del set (Revisar opciones para graficar regresiones linelaes)
+def graficar():
+    None
