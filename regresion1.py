@@ -11,19 +11,20 @@ import numpy as np
 
 #revisar si es posible dejarla a un lado
 def pregunta():
-    numexp =  int(input("Ingrese el número de variables explicativas que desse para su modelo: ")) #El numero de variables explicativas
-    empty = [] #lista vacia
-    for i in range(numexp): #Le pregunta al usuario el nombre de las variables
-        b = input("Por favor, ingrese el nombre de la variable explicativa: ")
-        empty.append(b)
-    print("Estas son las variables a considerar para su modelo: ", empty)
+    database = input("Nombre de la base de datos (Incluya el '.csv'): ")
+    delimitar = input("Formato en la que está delimitado (',', ';', etc): ")
+    data = pd.read_csv(database, delimiter= delimitar)
+    header = data.columns
+    print(header)
+    
+pregunta()
 
 #Opcion 1 del set (Estamos trabajando en ello)
 def testnormalidad():
     input("Ingrese el tipo de test que desea realizar: ")
+    
 
-
-def estimarBetas (data, datax, datay):
+def estimarCoefs (data):
     """Vamos a estimar las Betas de la regresión lineal, mediante el método de minimos cuadrados."""
     numexp =  int(input("Ingrese el número de variables explicativas que desse para su modelo: ")) #El numero de variables explicativas
     empty = [] #lista vacia
@@ -46,6 +47,10 @@ def estimarBetas (data, datax, datay):
         empdep.append(dep)
     else:
         print("Por favor revise si escribió bien el nombre de la variable.") #R--evisar si se puede hacer con un error programable
+        
+def estimacionErrores():
+    
+    None
     
 def rsquared (datax, datay, df):
     """Va a hallar el R^2. Recibe la variable dependiente y las independientes."""
