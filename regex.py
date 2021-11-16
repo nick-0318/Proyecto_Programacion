@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Nov 12 16:05:00 2021
-
 @author: javiervivas
 """
 
@@ -10,36 +9,36 @@ import pandas as pd
 import numpy as np
 import matplotlib as plt
 
-database = input("Nombre de la base de datos (Incluya el '.csv'): ")
+database = input("Nombre de la base de datos (Incluya el '.csv'): ") #pregunta el nombre de la base
 delimitar = input("Formato en la que está delimitado (',', ';', etc): ")
 
 data = pd.read_csv(database, delimiter= delimitar)
 header = data.columns
 print(header)
-count_nan_in_df = data.isnull().sum().sum()
-print ('Cantidad de NaN (O variables vacias): ', count_nan_in_df)
-data = data.fillna(0) #para arreglar los nans
-print ('Cantidad de NaN (O variables vacias): ', count_nan_in_df) #deberia dar 0 :)
+cuantanas = data.isnull().sum().sum()
+print ('Cantidad de NaN (O variables vacias): ', cuantanas)
+data = data.fillna(0) #para arreglar los nans, reemplaza por 0
 
 daty = []
 variabledep = input("¿Cuál es la variable dependiente que tiene el modelo?: ")
-data = daty.append(data[[variabledep]])
+data1 = daty.append(data[[variabledep]])
 datay = np.array(daty) 
-datay
+print(datay)
 
 variable = int(input("¿Cuántas variables explicativas tiene el modelo?: "))
 
+#extrae los datos de la base de datos
 vari = []
 exp = []
-
 for i in range(variable):
     variablex = input("¿Cuáles son variables explicativas tiene el modelo?: ")
     if variablex in header:
         vari.append(variablex)
-        exp.append(data[[variablex]])
+        exp.append(data[variablex])
     else:
         print("No existe.")
 
+print(exp)
 # Crea una matriz vacia
 w, h = variable+1, len(exp[1])
 Matrix = [[0 for x in range(w)] for y in range(h)] 
@@ -52,8 +51,8 @@ Matrix
 #completamos la matriz con los datos 
 for i in range(variable):
     for n in range(len(exp[1])):
-        for t in exp: #revisar esto
-            Matrix[n][i+1] = t
+        for t in exp[i[1]]: #revisar esto
+            Matrix[n][1] = t
             
 Matrix
 
@@ -87,10 +86,3 @@ plt.show()
 #los errores del modelo
 u = np.subtract(datay, y) 
 print(u)
-
-varip = pd.DataFrame(vari)
-expp =  np.array(exp)
-
-print(varip)
-print(expp)
-
