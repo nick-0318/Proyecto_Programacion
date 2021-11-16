@@ -8,49 +8,97 @@ Created on Mon Oct 11 18:36:26 2021
 
 import pandas as pd
 import numpy as np
+import matplotlib as plt
 
 #revisar si es posible dejarla a un lado
 def pregunta():
-    database = input("Nombre de la base de datos (Incluya el '.csv'): ")
+    database = input("Nombre de la base de datos (Incluya el '.csv'): ") #pregunta el nombre de la base
     delimitar = input("Formato en la que está delimitado (',', ';', etc): ")
     data = pd.read_csv(database, delimiter= delimitar)
+    cuantanas = data.isnull().sum().sum()
+    print ('Cantidad de NaN (O variables vacias): ', cuantanas)
+    data = data.fillna(0) #para arreglar los nans, reemplaza por 0
+    return data
+
+def header(data):
     header = data.columns
     print(header)
-    
-pregunta()
+    return data
 
-#Opcion 1 del set (Estamos trabajando en ello)
-def testnormalidad():
-    input("Ingrese el tipo de test que desea realizar: ")
+def extraey (data, header):
+    daty = []
+    variabledep = input("¿Cuál es la variable dependiente que tiene el modelo?: ")
+    daty.append(data[[variabledep]])
+    datay = np.array(daty) 
+    print(datay)
+    return datay
     
-
-def estimarCoefs (data):
+def extraerdatos (data, header):
     """Vamos a estimar las Betas de la regresión lineal, mediante el método de minimos cuadrados."""
-    numexp =  int(input("Ingrese el número de variables explicativas que desse para su modelo: ")) #El numero de variables explicativas
-    empty = [] #lista vacia
-    for i in range(numexp): #Le pregunta al usuario el nombre de las variables
-          b = input("Por favor, ingrese el nombre de la variable explicativa: ")
-          empty.append(b)
-    print("Estas son las variables a considerar para su modelo: ", empty)
-    datax = [] #la matriz con nuestras variables explicativas
-    for i in empty: #va agregando las variables explicativas a una matriz general x
-        if i in data:
-            datax.append(i) #las va agregando de una a una
-        elif i not in data:
-            print("Revisar si el nombre existe.")
-    #--mirar como usar esta matriz con la libreria pandas para poder multiplicarla.
-    #--No se como hacer esto ... omg ... mira si puedes tu
-    #Ahora que le pregunte al usuario cual variable quiere explicar
-    empdep = []
-    dep = input("Por favor, ingrese la variable a explicar: ")
-    if dep in data:
-        empdep.append(dep)
-    else:
-        print("Por favor revise si escribió bien el nombre de la variable.") #R--evisar si se puede hacer con un error programable
-        
-def estimacionErrores():
-    
-    None
+    variable = int(input("¿Cuántas variables explicativas tiene el modelo?: "))
+    return variable
+def extraedatos2 (data, header, variable):
+    #extrae los datos de la base de datos
+    vari = []
+    exp = []
+    for i in range(variable):
+        variablex = input("¿Cuáles son variables explicativas tiene el modelo?: ")
+        if variablex in header:
+            vari.append(variablex)
+            exp.append(data[variablex])
+        else:
+            print("No existe.")
+
+    print(exp)
+    return exp
+
+def matrizmarkov(exp, variable):
+    # Crea una matriz vacia
+    j, r = variable+1, len(exp[1])
+    Matrix = [[0 for x in range(j)] for y in range(r)] 
+    print(Matrix)
+    #crear el vector de unos y los añade 
+    for i in range(len(exp[1])):
+        Matrix[i][0] = 1
+    Matrix
+
+    #completamos la matriz con los datos 
+    for i in range(variable):
+        for n in range(len(exp[1])):
+            for t in exp[i[1]]: #revisar esto
+                Matrix[n][1] = t
+    print(Matrix)            
+    return Matrix
+
+def regresionlineal(Matrix, datay):
+    #convierte esa matriz en un array comun y corriente
+    A = np.array(Matrix)
+    A
+
+    #halla la transpuesta de esa matriz
+    At = np.transpose(A)
+    At
+
+    #Multiplica a A con At
+    AAt = np.dot(A,At)
+    AAt  
+
+    #halla la inversa de la matriz
+
+    Ai = np.linalg.inv(AAt)
+    Ai
+
+    #Multiplicamos nuevamente Ai con At
+    y1 = np.dot(Ai, At)
+
+    #finalmente, la regresion sería
+    y = np.dot(y1, datay)
+    return y
+
+def estimacionErrores(datay, y):
+    #los errores del modelo
+    u = np.subtract(datay, y) 
+    return u
     
 def rsquared (datax, datay, df):
     """Va a hallar el R^2. Recibe la variable dependiente y las independientes."""
@@ -65,5 +113,7 @@ def rsquared (datax, datay, df):
     return r2, adr2 #revisar muy bien que esto tenga sentido alguno
 
 #Opcion 4 del set (Revisar opciones para graficar regresiones linelaes)
-def graficar():
-    None
+def graficar(y):
+    #grafica:
+    grafica = plt.plot(y)
+    plt.show()
